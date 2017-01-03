@@ -38,9 +38,10 @@ theme.reverse = colors => {
 
 theme.reverseColors = theme.reverse(theme.colors);
 
-theme.font = path => (props = {}) => theme.get(['fonts', path], props.theme);
+theme.font = path => props => theme.get(['fonts', path], (props || {}).theme);
 
-theme.color = (i, p, e) => (props = {}) => {
+theme.color = (i, p, e) => props => {
+	props = props || {};
 	const args = [i, p, e];
 	const exceptions = args.find(arg => typeof arg === 'object') || {};
 	const path = args.find(arg => typeof arg === 'string') || props.color;
@@ -60,7 +61,7 @@ theme.color = (i, p, e) => (props = {}) => {
 	return theme.getColor([path, index], props.reverse, props.theme);
 };
 
-theme.reverseColor = (i, p, e) => (props = {}) =>
-	theme.color(i, p, e)(assign({}, props, {reverse: !props.reverse}));
+theme.reverseColor = (i, p, e) => props =>
+	theme.color(i, p, e)(assign({}, props, {reverse: !(props || {}).reverse}));
 
 module.exports = theme;
