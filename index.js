@@ -13,12 +13,6 @@ theme.colors = {
 	grayscale: ['#212121', '#616161', '#9e9e9e', '#bdbdbd', '#e0e0e0', '#ffffff']
 };
 
-theme.reverseColors = {};
-
-Object.keys(theme.colors).forEach(key => {
-	theme.reverseColors[key] = [].concat(theme.colors[key]).reverse();
-});
-
 theme.fonts = {
 	primary: 'Helvetica Neue, Helvetica, Roboto, sans-serif',
 	pre: 'Consolas, Liberation Mono, Menlo, Courier, monospace',
@@ -27,10 +21,20 @@ theme.fonts = {
 
 theme.get = (path, anotherTheme) => get(anotherTheme, path, get(theme, path));
 
-theme.getColor = (path, anotherTheme, reverse) => {
+theme.getColor = (path, reverse, anotherTheme) => {
 	const colorsPath = reverse ? 'reverseColors' : 'colors';
 	const fullPath = Array.isArray(path) ? [colorsPath].concat(path) : colorsPath + '.' + path;
 	return theme.get(fullPath, anotherTheme);
 };
+
+theme.reverse = colors => {
+	const reverseColors = {};
+	Object.keys(colors).forEach(key => {
+		reverseColors[key] = [].concat(colors[key]).reverse();
+	});
+	return reverseColors;
+};
+
+theme.reverseColors = theme.reverse(theme.colors);
 
 module.exports = theme;
