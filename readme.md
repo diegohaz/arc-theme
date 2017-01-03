@@ -21,15 +21,15 @@ import theme, { get, getColor } from 'arc-theme'
 
 console.log(theme) // outputs the entire theme object
 
-get('colors') // outputs { primary: [...], secondary: [...] }
-get('colors.primary') // outputs ['#1976d2', '#2196f3', '#71bcf7', '#c2e2fb']
-get('reverseColors.primary') // outputs ['#c2e2fb', '#71bcf7', '#2196f3', '#1976d2']
-get('colors.primary[0]') // outputs '#1976d2'
-get('fonts') // outputs { primary: '...', quote: '...' }
-get('fonts.primary') // outputs 'Helvetica Neue, Helvetica, Roboto, sans-serif'
+get('colors') // { primary: [...], secondary: [...] }
+get('colors.primary') // ['#1976d2', '#2196f3', '#71bcf7', '#c2e2fb']
+get('reverseColors.primary') // ['#c2e2fb', '#71bcf7', '#2196f3', '#1976d2']
+get('colors.primary[0]') // '#1976d2'
+get('fonts') // { primary: '...', quote: '...' }
+get('fonts.primary') // 'Helvetica Neue, Helvetica, Roboto, sans-serif'
 
-getColor('primary') // outputs theme.colors.primary
-getColor('primary[0]', true) // outputs theme.reverseColors.primary[0]
+getColor('primary') // theme.colors.primary
+getColor('primary[0]', true) // theme.reverseColors.primary[0]
 ```
 
 ### Overriding theme
@@ -45,13 +45,13 @@ myTheme.colors = {
 }
 myTheme.reverseColors = reverse(myTheme.colors)
 
-get('colors', myTheme) // outputs { grayscale: [...] }
-get('colors.primary', myTheme) // outputs arc-theme primary color
-get('fonts.primary', myTheme) // outputs arc-theme primary font
+get('colors', myTheme) // { grayscale: [...] }
+get('colors.primary', myTheme) // arc-theme primary color
+get('fonts.primary', myTheme) // arc-theme primary font
 
-getColor('grayscale', false, myTheme) // outputs myTheme.colors.grayscale
-getColor('grayscale[0]', true, myTheme) // outputs myTheme.reverseColors.grayscale[0]
-getColor('primary[0]', true, myTheme) // outputs theme.reverseColors.primary[0]
+getColor('grayscale', false, myTheme) // myTheme.colors.grayscale
+getColor('grayscale[0]', true, myTheme) // myTheme.reverseColors.grayscale[0]
+getColor('primary[0]', true, myTheme) // theme.reverseColors.primary[0]
 ```
 
 
