@@ -54,6 +54,43 @@ getColor('grayscale[0]', true, myTheme) // myTheme.reverseColors.grayscale[0]
 getColor('primary[0]', true, myTheme) // theme.reverseColors.primary[0]
 ```
 
+### Utilities for [`styled-components`](https://github.com/styled-components/styled-components)
+
+```jsx
+import styled from 'components'
+import { font, color, reverseColor } from 'arc-theme'
+
+const Div = styled.div`
+	font-family: ${font('primary')};
+	color: ${color(0)};
+	background-color: ${reverseColor('grayscale', 0)}
+`
+
+// color = theme.colors.primary[0]
+// background-color = theme.reverseColors.grayscale[0]
+<Div color="primary" />
+
+// color = theme.reverseColors.primary[0]
+// background-color = theme.colors.primary[0]
+<Div color="primary" reverse />
+```
+
+```jsx
+import styled from 'components'
+import { font, color, reverseColor } from 'arc-theme'
+
+const Div = styled.div`
+	font-family: ${font('primary')};
+	color: ${color({ grayscale: 0 }, 1)};
+`
+
+// color = theme.colors.primary[1]
+<Div color="primary" />
+
+// Because we defined the exception { grayscale: 0 }
+// color = theme.colors.grayscale[0]
+<Div color="grayscale" />
+```
 
 ## API
 
@@ -79,6 +116,27 @@ const colors = {
 reverse(colors) // { foo: ['baz', 'bar'], a: ['c', 'b'] }
 ```
 
+### font(path: String)(props: Object)
+
+Returns the font in `props.theme.fonts[path]` or `theme.fonts[path]`.
+
+This is the same as `get(['fonts', path], props.theme)`.
+
+### color(index: Number, [path: String], [exceptions: Object])(props: Object)
+
+Returns the color in `props.theme.colors[path][index]` or `theme.colors[path][index]`. `colors` will be `reverseColors` if `props.reverse` is `true`.
+
+This is the same as `getColor([path || props.path][index], props.reverse, props.theme)`.
+
+Arguments could be passed in any order.
+
+### reverseColor(index: Number, [path: String], [exceptions: Object])(props: Object)
+
+Returns the color in `props.theme.reverseColors[path][index]` or `theme.reverseColors[path][index]`. `reverseColors` will be `colors` if `props.reverse` is `true`.
+
+This is the same as `getColor([path || props.path][index], !props.reverse, props.theme)`.
+
+Arguments could be passed in any order.
 
 ## License
 

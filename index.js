@@ -1,6 +1,7 @@
 'use strict';
 
 const get = require('lodash/get');
+const assign = require('lodash/assign');
 
 const theme = {};
 
@@ -36,5 +37,29 @@ theme.reverse = colors => {
 };
 
 theme.reverseColors = theme.reverse(theme.colors);
+
+theme.font = path => (props = {}) => theme.get(['fonts', path], props.theme);
+
+theme.color = (...args) => (props = {}) => {
+	const exceptions = args.find(arg => typeof arg === 'object') || {};
+	const path = args.find(arg => typeof arg === 'string') || props.color;
+	let index = args.find(arg => typeof arg === 'number');
+
+	if (typeof index === 'undefined') {
+		throw new Error('[color] You must pass index');
+	}
+	if (typeof path === 'undefined') {
+		throw new Error('[color] You must pass color path');
+	}
+
+	if (Object.keys(exceptions).indexOf(path) >= 0) {
+		index = exceptions[path];
+	}
+
+	return theme.getColor([path, index], props.reverse, props.theme);
+};
+
+theme.reverseColor = (...args) => (props = {}) =>
+	theme.color(...args)(assign({}, props, {reverse: !props.reverse}));
 
 module.exports = theme;
