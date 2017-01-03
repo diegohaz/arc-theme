@@ -138,6 +138,19 @@ This is the same as `getColor([path || props.path][index], !props.reverse, props
 
 Arguments could be passed in any order.
 
+### ifProps(needle: Array|String|Object, pass: Any, fail: Any)(props: Object)
+
+Returns `pass` or `fail` according to `needle` result. `needle` can be some of these:
+```js
+'foo' // props.foo == true
+['foo', 'bar'] // props.foo == true && props.bar == true
+'foo.bar' // props.foo.bar == true
+['foo.bar', 'baz'] // props.foo.bar == true && props.baz == true
+{ foo: 'bar' } // props.foo === 'bar'
+{ 'foo.bar': 'baz' } // props.foo.bar === 'baz'
+{ foo: 'bar', baz: true } // props.foo === 'bar' && props.baz === true
+```
+
 ## License
 
 MIT © [Diego Haz](https://github.com/diegohaz)

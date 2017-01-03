@@ -1,6 +1,9 @@
 'use strict';
 
 const get = require('lodash/get');
+const at = require('lodash/at');
+const values = require('lodash/values');
+const difference = require('lodash/difference');
 const assign = require('lodash/assign');
 
 const theme = {};
@@ -18,6 +21,20 @@ theme.fonts = {
 	primary: 'Helvetica Neue, Helvetica, Roboto, sans-serif',
 	pre: 'Consolas, Liberation Mono, Menlo, Courier, monospace',
 	quote: 'Georgia, serif'
+};
+
+theme.ifProps = (needle, pass, fail) => props => {
+	let result;
+	if (Array.isArray(needle)) {
+		result = !at(props, needle).filter(value => !value).length;
+	} else if (typeof needle === 'object') {
+		const needleKeys = Object.keys(needle);
+		const needleValues = values(needle);
+		result = !difference(at(props, needleKeys), needleValues).length;
+	} else {
+		result = get(props, needle);
+	}
+	return result ? pass : fail;
 };
 
 theme.get = (path, anotherTheme) => get(anotherTheme, path, get(theme, path));

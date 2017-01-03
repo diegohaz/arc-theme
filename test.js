@@ -1,5 +1,5 @@
 import test from 'ava';
-import theme, {get, getColor, reverse, font, color, reverseColor} from '.';
+import theme, {get, getColor, reverse, font, color, reverseColor, ifProps} from '.';
 
 test('theme', t => {
 	t.deepEqual(theme.colors.primary, ['#1976d2', '#2196f3', '#71bcf7', '#c2e2fb']);
@@ -107,4 +107,20 @@ test('reverseColor', t => {
 	t.is(fn('danger', 1)({theme: theme2}), theme.reverseColors.danger[1]);
 	t.is(fn('danger', 1)({theme: theme2, color: 'foo'}), theme.reverseColors.danger[1]);
 	t.is(fn('danger', 1)({theme: theme2, reverse: true}), theme.colors.danger[1]);
+});
+
+test('ifProps', t => {
+	t.is(ifProps('foo', 'yes', 'no')(), 'no');
+	t.is(ifProps('foo', 'yes', 'no')({foo: true}), 'yes');
+	t.is(ifProps('foo', 'yes', 'no')({foo: false}), 'no');
+	t.is(ifProps(['foo', 'bar'], 'yes', 'no')({bar: true, foo: true}), 'yes');
+	t.is(ifProps(['foo', 'bar'], 'yes', 'no')({foo: true, bar: false}), 'no');
+	t.is(ifProps('foo.bar', 'yes', 'no')({foo: {bar: true}}), 'yes');
+	t.is(ifProps('foo.bar', 'yes', 'no')({foo: {bar: false}}), 'no');
+	t.is(ifProps({foo: 'ok'}, 'yes', 'no')({foo: 'ok'}), 'yes');
+	t.is(ifProps({foo: 'ok'}, 'yes', 'no')({foo: 'not ok'}), 'no');
+	t.is(ifProps({'foo.bar': 'ok'}, 'yes', 'no')({foo: {bar: 'ok'}}), 'yes');
+	t.is(ifProps({'foo.bar': 'ok'}, 'yes', 'no')({foo: {bar: 'no'}}), 'no');
+	t.is(ifProps({foo: 'ok', bar: 'ok'}, 'yes', 'no')({bar: 'ok', foo: 'ok'}), 'yes');
+	t.is(ifProps({foo: 'ok', bar: 'ok'}, 'yes', 'no')({foo: 'not ok', bar: 'ok'}), 'no');
 });
