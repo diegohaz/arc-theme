@@ -1,4 +1,6 @@
-# arc-theme [![Build Status](https://travis-ci.org/diegohaz/arc-theme.svg?branch=master)](https://travis-ci.org/diegohaz/arc-theme) [![Coverage Status](https://coveralls.io/repos/github/diegohaz/arc-theme/badge.svg?branch=master)](https://coveralls.io/github/diegohaz/arc-theme?branch=master)
+# arc-theme 
+[![NPM version](https://img.shields.io/npm/v/arc-theme.svg?style=flat-square)](https://npmjs.org/package/arc-theme)
+[![Build Status](https://img.shields.io/travis/diegohaz/arc-theme/master.svg?style=flat-square)](https://travis-ci.org/diegohaz/arc-theme) [![Coverage Status](https://img.shields.io/codecov/c/github/diegohaz/arc-theme/master.svg?style=flat-square)](https://codecov.io/gh/diegohaz/arc-theme/branch/master)
 
 > ARc theming utilities and resources
 

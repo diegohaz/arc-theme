@@ -1,6 +1,8 @@
 language: node_js
 node_js:
-  - '6'
-  - '4'
-after_script:
-  - 'cat coverage/lcov.info | ./node_modules/.bin/coveralls'
+  - v6
+  - v4
+script:
+  - npm run lint && npm test -- --coverage
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
