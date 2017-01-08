@@ -118,6 +118,12 @@ const colors = {
 reverse(colors) // { foo: ['baz', 'bar'], a: ['c', 'b'] }
 ```
 
+### key(path: String)(props: Object)
+
+Returns the key in `props.theme[path]` or `theme[path]`.
+
+This is the same as `get(path, props.theme)`.
+
 ### font(path: String)(props: Object)
 
 Returns the font in `props.theme.fonts[path]` or `theme.fonts[path]`.

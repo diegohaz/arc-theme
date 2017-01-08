@@ -50,6 +50,8 @@ export const reverse = colors => {
   return reverseColors
 }
 
+export const key = path => (props = {}) => get(path, props.theme)
+
 export const font = path => (props = {}) => get(['fonts', path], props.theme)
 
 export const color = (...args) => (props = {}) => {

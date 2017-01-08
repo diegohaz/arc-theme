@@ -1,4 +1,4 @@
-import theme, { get, getColor, reverse, font, color, reverseColor, ifProps } from '../src'
+import theme, { get, getColor, reverse, key, font, color, reverseColor, ifProps } from '../src'
 
 describe('theme', () => {
   it('has primary colors', () => {
@@ -64,6 +64,20 @@ describe('reverse', () => {
 
   it('returns reverse colors', () => {
     expect(reverse(theme2.colors)).toEqual({ primary: ['c', 'b', 'a'] })
+  })
+})
+
+describe('key', () => {
+  const theme2 = {
+    foo: 'bar'
+  }
+
+  it('returns value from theme when no anotherTheme was passed in', () => {
+    expect(key('colors')()).toBe(theme.colors)
+  })
+
+  it('returns value from anotherTheme when passed in', () => {
+    expect(key('foo')({ theme: theme2 })).toBe(theme2.foo)
   })
 })
 
